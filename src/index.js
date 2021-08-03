@@ -27,6 +27,16 @@ function fetchToys() {
   })
 }
 
+function renderToys(toys) {
+  const toyContainer = document.querySelector("#toy-collection")
+  toys.forEach(toy => {
+    const card = document.createElement('div')
+    card.classList.add('card')
+    card.innerText = toy
+    toyContainer.appendChild(card)
+  })
+}
+
 // each card should have 
 // h2 tag with the toy's name
 // img tag with the src of the toy's image attribute and the class name "toy-avatar"
