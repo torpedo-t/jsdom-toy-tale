@@ -25,7 +25,7 @@ function fetchToys() {
   })
   .then(function(object) {
     renderToys(object)
-    console.log(object)
+    // console.log(object)
   })
   
 }
@@ -42,6 +42,7 @@ function renderToys(toys) {
     img.classList.add('toy-avatar')
     img.src = toy.image
     const p = document.createElement('p')
+    p.classList.add('likes')
     p.innerText = toy.likes 
     const button = document.createElement('button')
     button.classList.add('like-btn')
@@ -75,17 +76,15 @@ function addToys(name, image) {
   })
   .then(function(object) {
     toys.push(object)
-    console.log(toys)
+    // console.log(toys)
     renderToys(toys)
   })
   
 }
 addToys("name", "image")
 
-function addLikes(id) {
-  let formData = {
-    id: id
-  }
+function fetchLikes() {
+
   let configObj = {
     method: "PATCH",
     headers: {
@@ -96,4 +95,14 @@ function addLikes(id) {
       "likes": newNumber
     })
   }
+}
+
+
+function addLikes() {
+  // likesButton.addEventListener("click", function(event) {
+
+  // })
+  likesContainer = document.getElementsByClassName("likes")
+  likesButton = document.getElementsByClassName("likes-btn")
+  console.log(likesButton)
 }
