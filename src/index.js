@@ -13,3 +13,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
+
+
+// define a function that fetches all the toy objects
+// with the response data, make a <div class="card"> for each toy and add it to the toy-collection div
+// each card should have h2 tag with the toy's name 
+// img tag with the src of the toy's image attribute and the class name "toy-avatar" 
+// p tag with how many likes that toy has
+// button tag with a class "like-btn"
+// call this function under DOM content loaded event listener
