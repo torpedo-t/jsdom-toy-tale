@@ -1,4 +1,5 @@
 let addToy = false;
+let toys = []
 
 document.addEventListener("DOMContentLoaded", () => {
   fetchToys()
@@ -24,7 +25,7 @@ function fetchToys() {
   })
   .then(function(object) {
     renderToys(object)
-    // console.log(object)
+    console.log(object)
   })
   
 }
@@ -48,11 +49,12 @@ function renderToys(toys) {
     card.appendChild(img)
     card.appendChild(p)
     card.appendChild(button)
-    console.log(card)
+    // console.log(card)
     toyContainer.appendChild(card)
   })
 }
 
+// add the toy to my toys array
 function addToys(name, image) {
   let formData = {
     name: name,
@@ -72,6 +74,26 @@ function addToys(name, image) {
     return response.json();
   })
   .then(function(object) {
-
+    toys.push(object)
+    console.log(toys)
+    renderToys(toys)
   })
+  
+}
+addToys("name", "image")
+
+function addLikes(id) {
+  let formData = {
+    id: id
+  }
+  let configObj = {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    body: JSON.stringify({
+      "likes": newNumber
+    })
+  }
 }
