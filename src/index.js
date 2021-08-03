@@ -14,6 +14,25 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+// when the page loads, make a 'GET' request to fetch all the toy objects.
+// with the response data, make a <div class="card"> for each toy and add it to the toy-collection div
+function fetchToys() {
+  return fetch("http://localhost:3000/toys")
+  .then(function(response) {
+    return response.json();
+    console.log(json)
+  })
+  .then(function(object) {
+    console.log(object)
+  })
+}
+
+// each card should have 
+// h2 tag with the toy's name
+// img tag with the src of the toy's image attribute and the class name "toy-avatar"
+// p tag with how many likes that toy has
+// button tag with the class "like-btn"
+
 function addToys(name, image) {
   let formData = {
     name: name,
@@ -36,13 +55,3 @@ function addToys(name, image) {
 
   })
 }
-
-
-
-// define a function that fetches all the toy objects
-// with the response data, make a <div class="card"> for each toy and add it to the toy-collection div
-// each card should have h2 tag with the toy's name 
-// img tag with the src of the toy's image attribute and the class name "toy-avatar" 
-// p tag with how many likes that toy has
-// button tag with a class "like-btn"
-// call this function under DOM content loaded event listener
