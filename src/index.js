@@ -1,6 +1,7 @@
 let addToy = false;
 
 document.addEventListener("DOMContentLoaded", () => {
+  fetchToys()
   const addBtn = document.querySelector("#new-toy-btn");
   const toyFormContainer = document.querySelector(".container");
   addBtn.addEventListener("click", () => {
@@ -20,28 +21,37 @@ function fetchToys() {
   return fetch("http://localhost:3000/toys")
   .then(function(response) {
     return response.json();
-    console.log(json)
   })
   .then(function(object) {
-    console.log(object)
+    renderToys(object)
+    // console.log(object)
   })
+  
 }
 
 function renderToys(toys) {
   const toyContainer = document.querySelector("#toy-collection")
   toys.forEach(toy => {
+    // console.log(toy)
     const card = document.createElement('div')
     card.classList.add('card')
-    card.innerText = toy
+    const h2 = document.createElement('h2')
+    h2.innerText = toy.name
+    const img = document.createElement('img')
+    img.classList.add('toy-avatar')
+    img.src = toy.image
+    const p = document.createElement('p')
+    p.innerText = toy.likes 
+    const button = document.createElement('button')
+    button.classList.add('like-btn')
+    card.appendChild(h2)
+    card.appendChild(img)
+    card.appendChild(p)
+    card.appendChild(button)
+    console.log(card)
     toyContainer.appendChild(card)
   })
 }
-
-// each card should have 
-// h2 tag with the toy's name
-// img tag with the src of the toy's image attribute and the class name "toy-avatar"
-// p tag with how many likes that toy has
-// button tag with the class "like-btn"
 
 function addToys(name, image) {
   let formData = {
