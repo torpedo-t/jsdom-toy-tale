@@ -57,34 +57,40 @@ function renderToys(toys) {
 
 // add the toy to my toys array
 function addToys(name, image) {
-  let formData = {
-    name: name,
-    image: image
-  };
   let configObj = {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       "Accept": "application/json"
     },
-    body: JSON.stringify(formData)
+    body: JSON.stringify({
+      name,
+      image,
+      "likes": 0
+    })
   };
-
   return fetch("http://localhost:3000/toys", configObj)
   .then(function(response) {
     return response.json();
   })
   .then(function(object) {
     toys.push(object)
-    // console.log(toys)
+    console.log(toys)
     renderToys(toys)
+    console.log(toys)
   })
-  
 }
-addToys("name", "image")
+
+function addNewToy() {
+  const submit = document.querySelectory(".submit")
+  console.log(submit)
+}
+
+
+
+// addToys("name", "image")
 
 function fetchLikes() {
-
   let configObj = {
     method: "PATCH",
     headers: {
@@ -92,17 +98,24 @@ function fetchLikes() {
       "Accept": "application/json"
     },
     body: JSON.stringify({
-      "likes": newNumber
+      "likes": newLikes
     })
-  }
+  };
+    return fetch(`http://localhost:3000/toys/${toyId}`, configObj)
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(object) {
+      addLikes(object)
+    })
 }
 
 
 function addLikes() {
-  // likesButton.addEventListener("click", function(event) {
+  likesContainer = document.getElementsByClassName("likes")
+  likesButton = document.querySelector(".likes-btn")
+  console.log(likesButton)
+    // likesButton.addEventListener("click", function(event) {
 
   // })
-  likesContainer = document.getElementsByClassName("likes")
-  likesButton = document.getElementsByClassName("likes-btn")
-  console.log(likesButton)
 }
