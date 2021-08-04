@@ -99,9 +99,10 @@ function addNewToy() {
 }
 
 function addLikes(event) {
-  const likeToAdd = document.getElementById(event.target.id)
-  console.log(likeToAdd)
-  let int = parseInt(likeToAdd.nextSibling.innerText[0])
+  let likeToAdd = document.getElementById(event.target.id)
+  let unformattedInt = parseInt(likeToAdd.previousSibling.innerText[0])
+  let int = pad(unformattedInt, 2)
+  console.log(int)
   let numToUpdate = int + 1
   console.log("int", int)
   event.preventDefault()
@@ -118,5 +119,13 @@ function addLikes(event) {
     })
   })
   .then(response => response.json())
-  .then(json =>  {likeToAdd.nextSibling.innerText = `${json.likes} likes`})
+  .then(json =>  {likeToAdd.previousSibling.innerText = `${json.likes} likes`})
+}
+
+function pad(number, length) {
+  var str = '' + number;
+  while (str.length < length) {
+    str = '0' + str;
+  }
+  return str;
 }
