@@ -4,6 +4,7 @@ let toys = []
 document.addEventListener("DOMContentLoaded", () => {
   fetchToys()
   addNewToy()
+  fetchLikes()
   const addBtn = document.querySelector("#new-toy-btn");
   const toyFormContainer = document.querySelector(".container");
   addBtn.addEventListener("click", () => {
@@ -46,7 +47,12 @@ function renderToys(toys) {
     p.classList.add('likes')
     p.innerText = toy.likes 
     const button = document.createElement('button')
+    button.id = toy.id
+    button.innerText = "Like Me!"
     button.classList.add('like-btn')
+    button.addEventListener("click", function(event) {
+      addLikes(event)
+    })
     card.appendChild(h2)
     card.appendChild(img)
     card.appendChild(p)
@@ -75,10 +81,8 @@ function addToys(name, image) {
     return response.json();
   })
   .then(function(object) {
-    console.log(toys)
     toys.push(object)
     renderToys(toys)
-    console.log(toys)
   })
 }
 
@@ -94,32 +98,24 @@ function addNewToy() {
   })
 }
 
-function fetchLikes() {
-  let configObj = {
+function addLikes(event) {
+  let likeToAdd = document.getElementById(event.target.id)
+  let int = parseInt(likeToAdd.nextSibling.innerText[0])
+  let numToUpdate = int + 1
+  console.log("int", int)
+  event.preventDefault()
+  // debugger;
+   fetch(`http://localhost:3000/toys/${int}`, {
     method: "PATCH",
-    headers: {
+    headers: 
+    {
       "Content-Type": "application/json",
       "Accept": "application/json"
-    },
+    }, 
     body: JSON.stringify({
-      "likes": newLikes
+      "likes": numToUpdate
     })
-  };
-    return fetch(`http://localhost:3000/toys/${toyId}`, configObj)
-    .then(function(response) {
-      return response.json();
-    })
-    .then(function(object) {
-      addLikes(object)
-    })
-}
-
-
-function addLikes() {
-  likesContainer = document.getElementsByClassName("likes")
-  likesButton = document.querySelector(".likes-btn")
-  console.log(likesButton)
-    // likesButton.addEventListener("click", function(event) {
-    fetchLikes()
-  // })
+  })
+  .then(response => response.json())
+  .then(json =>  {likeToAdd.nextSibling.innerText = `${json.likes} likes`})
 }
