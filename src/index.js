@@ -4,7 +4,6 @@ let toys = []
 document.addEventListener("DOMContentLoaded", () => {
   fetchToys()
   addNewToy()
-  fetchLikes()
   const addBtn = document.querySelector("#new-toy-btn");
   const toyFormContainer = document.querySelector(".container");
   addBtn.addEventListener("click", () => {
@@ -43,9 +42,10 @@ function renderToys(toys) {
     const img = document.createElement('img')
     img.classList.add('toy-avatar')
     img.src = toy.image
+    img.alt = toy.name
     const p = document.createElement('p')
     p.classList.add('likes')
-    p.innerText = toy.likes 
+    p.innerText = `${toy.likes} Likes`
     const button = document.createElement('button')
     button.id = toy.id
     button.innerText = "Like Me!"
@@ -99,7 +99,8 @@ function addNewToy() {
 }
 
 function addLikes(event) {
-  let likeToAdd = document.getElementById(event.target.id)
+  const likeToAdd = document.getElementById(event.target.id)
+  console.log(likeToAdd)
   let int = parseInt(likeToAdd.nextSibling.innerText[0])
   let numToUpdate = int + 1
   console.log("int", int)
