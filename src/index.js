@@ -3,6 +3,7 @@ let toys = []
 
 document.addEventListener("DOMContentLoaded", () => {
   fetchToys()
+  addNewToy()
   const addBtn = document.querySelector("#new-toy-btn");
   const toyFormContainer = document.querySelector(".container");
   addBtn.addEventListener("click", () => {
@@ -74,21 +75,24 @@ function addToys(name, image) {
     return response.json();
   })
   .then(function(object) {
-    toys.push(object)
     console.log(toys)
+    toys.push(object)
     renderToys(toys)
     console.log(toys)
   })
 }
 
 function addNewToy() {
-  const submit = document.querySelectory(".submit")
-  console.log(submit)
+  const submit = document.querySelector(".submit")
+  submit.addEventListener("click", function(e){
+    e.preventDefault();
+    const formElements = e.target.parentElement
+    const name = formElements[0].value
+    const img = formElements[1].value
+    // debugger
+    addToys(name, img)
+  })
 }
-
-
-
-// addToys("name", "image")
 
 function fetchLikes() {
   let configObj = {
@@ -116,6 +120,6 @@ function addLikes() {
   likesButton = document.querySelector(".likes-btn")
   console.log(likesButton)
     // likesButton.addEventListener("click", function(event) {
-
+    fetchLikes()
   // })
 }
